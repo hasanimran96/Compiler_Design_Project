@@ -1,0 +1,10 @@
+Compiler Design Project Submission timeline:
+1) project proposal (define tokens for LA and grammar for parsers) - 25th March
+2) token definitions - 27th March
+3) Grammar for Parser - 3rd April
+4) Lexical Analyzer - 10th April
+5) parser/syntax analyzer - 17th April
+6) Semantic analyzer - 24rth April
+7) Intermediate Code Generation - 1st May
+
+Demo with optimization as bonus will be conducted at a later date
