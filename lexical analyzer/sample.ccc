@@ -1,0 +1,11 @@
+num begin(){
+	char a = 'a';
+	char *str = "a string";
+	num i = 10;
+	real j = 1.29;
+	loop( i > 0){
+		print("%d",i);
+		i-=1;
+	}
+	end 0;
+}
