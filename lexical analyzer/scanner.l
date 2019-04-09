@@ -1,7 +1,7 @@
-D			[0-9]
-L			[a-zA-Z_]
-FS			(f|F|l|L)
-IS          ((u|U)|(u|U)?(l|L|ll|LL)|(l|L|ll|LL)(u|U))
+D		[0-9]
+L		[a-zA-Z_]
+FS		(f|F|l|L)
+IS		((u|U)|(u|U)?(l|L|ll|LL)|(l|L|ll|LL)(u|U))
 
 %{
 #include <stdio.h>
@@ -13,45 +13,45 @@ void comment(void);
 %}
 
 %%
-"/*"		{ comment(); }
-"//"[^\n]*  { /* consume //-comment */ }
+"/*"			{ comment(); }
+"//"[^\n]*  		{ /* consume //-comment */ }
 
-"char" 		{ count(); return(CHAR);}
-"real" 		{ count(); return REAL;}
-"num"		{ count(); return NUM;}
-"positive" 	{ count(); return POSITIVE;}
-"none"		{ count(); return NONE;}
-"stop" 		{ count(); return STOP;}
-"go" 		{ count(); return GO;}
-"do" 		{ count(); return DO;}
-"else" 		{ count(); return ELSE:}
-"jump" 		{ count(); return JUMP;}
-"if"		{ count(); return IF;}
-"end" 		{ count(); return END;}
-"loop"		{ count(); return LOOP;}
-"size" 		{ count(); return SIZE;}
+"char" 			{ count(); return(CHAR);}
+"real" 			{ count(); return REAL;}
+"num"			{ count(); return NUM;}
+"positive" 		{ count(); return POSITIVE;}
+"none"			{ count(); return NONE;}
+"stop" 			{ count(); return STOP;}
+"go" 			{ count(); return GO;}
+"do" 			{ count(); return DO;}
+"else" 			{ count(); return ELSE:}
+"jump" 			{ count(); return JUMP;}
+"if"			{ count(); return IF;}
+"end" 			{ count(); return END;}
+"loop"			{ count(); return LOOP;}
+"size" 			{ count(); return SIZE;}
 
-{L}({L}|{D})*			{ count(); return(IDENTIFIER); }
+{L}({L}|{D})*		{ count(); return(IDENTIFIER); }
 
-[1-9]{D}*{IS}?			{ count(); return(CONSTANT); }
-L?'(\\.|[^\\'\n])+'		{ count(); return(CONSTANT); }
+[1-9]{D}*{IS}?		{ count(); return(CONSTANT); }
+L?'(\\.|[^\\'\n])+'	{ count(); return(CONSTANT); }
 
-{D}*"."{D}+{FS}?		{ count(); return(CONSTANT); }
-{D}+"."{D}*{FS}?		{ count(); return(CONSTANT); }
+{D}*"."{D}+{FS}?	{ count(); return(CONSTANT); }
+{D}+"."{D}*{FS}?	{ count(); return(CONSTANT); }
 
 L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING_LITERAL); }
 
-"+="		{ count(); return(ADD_ASSIGN); }
-"-="		{ count(); return(SUB_ASSIGN); }
-"*="		{ count(); return(MUL_ASSIGN); }
-"/="		{ count(); return(DIV_ASSIGN); }
-"%="		{ count(); return(MOD_ASSIGN); }
-"&&"		{ count(); return(AND_OP); }
-"||"		{ count(); return(OR_OP); }
-"<="		{ count(); return(LE_OP); }
-">="		{ count(); return(GE_OP); }
-"=="		{ count(); return(EQ_OP); }
-"!="		{ count(); return(NE_OP); }
+"+="			{ count(); return(ADD_ASSIGN); }
+"-="			{ count(); return(SUB_ASSIGN); }
+"*="			{ count(); return(MUL_ASSIGN); }
+"/="			{ count(); return(DIV_ASSIGN); }
+"%="			{ count(); return(MOD_ASSIGN); }
+"&&"			{ count(); return(AND_OP); }
+"||"			{ count(); return(OR_OP); }
+"<="			{ count(); return(LE_OP); }
+">="			{ count(); return(GE_OP); }
+"=="			{ count(); return(EQ_OP); }
+"!="			{ count(); return(NE_OP); }
 ";"			{ count(); return(';'); }
 "{"			{ count(); return('{'); }
 "}"			{ count(); return('}'); }
@@ -73,7 +73,7 @@ L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING_LITERAL); }
 "<"			{ count(); return('<'); }
 ">"			{ count(); return('>'); }
 
-[ \t\v\n\f]	{ count(); }
+[ \t\v\n\f]		{ count(); }
 . 			return yytext[0];{} /*{Add code to complain about unmatched characters }*/
 
 %%
@@ -95,7 +95,6 @@ void comment(void){
 int column = 0;
 
 void count(void){
-
 	for (int i = 0; yytext[i] != '\0'; i++)
 		if (yytext[i] == '\n')
 			column = 0;
@@ -106,19 +105,6 @@ void count(void){
 
 	ECHO;
 }
-/*
-int check_type(void){
-* pseudo code --- this is what it should check
-*
-*	if (yytext == type_name)
-*		return TYPE_NAME;
-*
-*	return IDENTIFIER;
-*
-*	it actually will only return IDENTIFIER
-*
-}
-*/
 
 int main(){ 
 	// yywrap() - wraps the above rule section 
