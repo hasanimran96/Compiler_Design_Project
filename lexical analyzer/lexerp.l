@@ -1,6 +1,6 @@
 D		[0-9]
 L		[a-zA-Z_]
-
+%option yylineno
 %{
 #include <stdio.h>
 //#include "y.tab.h" Bison file here
@@ -69,8 +69,8 @@ L?\"(\\.|[^\\"\n])*\"	{ count(); print_token("STRING",yytext,1);}
 "%"			{ count(); print_token(yytext,NULL,0);}
 "<"			{ count(); print_token(yytext,NULL,0);}
 ">"			{ count(); print_token(yytext,NULL,0);}
-
-[ \t\v\n\f]		{ count(); }
+[ \t\v]			{ count(); }
+[\n\f]			{ count();printf("%d",yylineno); }
 . 			{error=1;return yytext[0];}
 
 %%
@@ -86,7 +86,8 @@ void comment(void){
 			return;
 		prev = c;
 	}
-	printf("unterminated comment");//error("unterminated comment");
+	printf("Unterminated comment\n");
+	error=1;
 }
 
 int column = 0;
@@ -121,12 +122,12 @@ int main(int argc , char *argv[]) {
 		return -1;
 	}
 	yyin = myfile;
-	
+	printf("1");
 	yylex();
 	if(error)
-		printf("Lexical error on Col: %d : %s\n",column, yytext);
+		printf("\nLexical error on Line: %d:%d : %s\n",yylineno,column, yytext);
 	else
-		printf("Success! Tokens Generated\n");
+		printf("\nSuccess! Tokens Generated\n");
 	fclose(myfile);
 	fclose(outfile);
 }
