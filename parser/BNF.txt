@@ -1,119 +1,142 @@
-<translation-unit> ::= {<external-declaration>}*
+<translation-unit>              ::= {<external-declaration>}*
 
-<external-declaration> ::= <function-definition> | <declaration>
+<external-declaration>          ::= <function-definition> 
+                                    | <declaration>
 
-<function-definition> ::= {<type-specifier>}* <declarator> {<declaration>}* <compound-statement>
+<function-definition>           ::= {<type-specifier>}* <declarator> {<declaration>}* <compound-statement>
 
-<type-specifier> ::= none | char | num | real | positive
+<type-specifier>                ::= "none" 
+                                    | "char" 
+                                    | "num" 
+                                    | "real" 
+                                    | "positive"
 
-<declarator> ::= {<pointer>}? <direct-declarator>
+<declarator>                    ::= {<pointer>}? <direct-declarator>
 
-<pointer> ::= * {<pointer>}?
+<pointer>                       ::= *{<pointer>}?
 
-<direct-declarator> ::= <identifier>
-                      | ( <declarator> )
-                      | <direct-declarator> [ {logical-or-expression}? ]
-                      | <direct-declarator> ( <parameter-type-list> )
-                      | <direct-declarator> ( {<identifier>}* )
+<direct-declarator>             ::= <identifier>
+                                    | "(" <declarator> ")"
+                                    | <direct-declarator> "[" {logical-or-expression}? "]"
+                                    | <direct-declarator> "(" <parameter-type-list> ")"
+                                    | <direct-declarator> "(" {<identifier>}* ")"
 
-<logical-or-expression> ::= <logical-and-expression>
-                          | <logical-or-expression> || <logical-and-expression>
+<logical-or-expression>         ::= <logical-and-expression>
+                                    | <logical-or-expression> "||" <logical-and-expression>
 
 
-<logical-and-expression> ::= <equality-expression>
-                           | <logical-and-expression> && <equality-expression>
+<logical-and-expression>        ::= <equality-expression>
+                                    | <logical-and-expression> "&&" <equality-expression>
 	
-<equality-expression> ::= <relational-expression>
-                        | <equality-expression> == <relational-expression>
-                        | <equality-expression> != <relational-expression>
+<equality-expression>           ::= <relational-expression>
+                                    | <equality-expression> "==" <relational-expression>
+                                    | <equality-expression> "!=" <relational-expression>
 
-<relational-expression> ::= <additive-expression>
-                          | <relational-expression> < <additive-expression>
-                          | <relational-expression> > <additive-expression>
-                          | <relational-expression> <= <additive-expression>
-                          | <relational-expression> >= <additive-expression>
+<relational-expression>         ::= <additive-expression>
+                                    | <relational-expression> "<" <additive-expression>
+                                    | <relational-expression> ">" <additive-expression>
+                                    | <relational-expression> "<=" <additive-expression>
+                                    | <relational-expression> ">=" <additive-expression>
 
-<additive-expression> ::= <multiplicative-expression>
-                        | <additive-expression> + <multiplicative-expression>
-                        | <additive-expression> - <multiplicative-expression>
+<additive-expression>           ::= <multiplicative-expression>
+                                    | <additive-expression> "+" <multiplicative-expression>
+                                    | <additive-expression> "-" <multiplicative-expression>
 
-<multiplicative-expression> ::= <cast-expression>
-                              | <multiplicative-expression> * <cast-expression>
-                              | <multiplicative-expression> / <cast-expression>
-                              | <multiplicative-expression> % <cast-expression>
+<multiplicative-expression>     ::= <cast-expression>
+                                    | <multiplicative-expression> "*" <cast-expression>
+                                    | <multiplicative-expression> "/" <cast-expression>
+                                    | <multiplicative-expression> "%" <cast-expression>
 
-<cast-expression> ::= <unary-expression> | ( <type-name> ) <cast-expression>
+<cast-expression>               ::= <unary-expression> 
+                                    | "(" <type-name> ")" <cast-expression>
 
-<unary-expression> ::= <postfix-expression>
-                     | <unary-operator> <cast-expression>
-                     | size <unary-expression>
-                     | size <type-name>
+<unary-expression>              ::= <postfix-expression>
+                                    | <unary-operator> <cast-expression>
+                                    | "size" <unary-expression>
+                                    | "size" <type-name>
 
-<postfix-expression> ::= <primary-expression>
-                       | <postfix-expression> [ <expression> ]
-                       | <postfix-expression> ( {<assignment-expression>}* )
+<postfix-expression>            ::= <primary-expression>
+                                    | <postfix-expression> "[" <expression> "]"
+                                    | <postfix-expression> "(" {<assignment-expression>}* ")"
 
-<primary-expression> ::= <identifier>
-                       | <constant>
-                       | <words>
-                       | ( <expression> )
+<primary-expression>            ::= <identifier>
+                                    | <constant>
+                                    | <words>
+                                    | "(" <expression> ")"
 
-<constant> ::= <number> | <character> | <real-number>
+<constant>                      ::= <number> 
+                                    | <character> 
+                                    | <real-number>
 
-<expression> ::= <assignment-expression> | <expression> , <assignment-expression>
+<expression>                    ::= <assignment-expression> 
+                                    | <expression> "," <assignment-expression>
 
-<assignment-expression> ::= <logical-or-expression>
-                          | <unary-expression> <assignment-operator> <assignment-expression>
+<assignment-expression>         ::= <logical-or-expression>
+                                    | <unary-expression> <assignment-operator> <assignment-expression>
 
-<assignment-operator> ::= = | *= | /=| %= | += | -= 
+<assignment-operator>           ::= "=" 
+                                    | "*=" 
+                                    | "/="
+                                    | "%=" 
+                                    | "+=" 
+                                    | "-=" 
 
-<unary-operator> ::= & | * | + | - | !
+<unary-operator>                ::= "&" 
+                                    | "*" 
+                                    | "+" 
+                                    | "-" 
+                                    | "!"
 
-<type-name> ::= {<specifier-qualifier>}+ {<abstract-declarator>}?
+<type-name>                     ::= {<specifier-qualifier>}+ {<abstract-declarator>}?
 
-<parameter-type-list> ::= <parameter-list> | <parameter-list> , ...
-<parameter-list> ::= <parameter-declaration> | <parameter-list> , <parameter-declaration>
+<parameter-type-list>           ::= <parameter-list> 
+                                    | <parameter-list> "," ...
 
-<parameter-declaration> ::= {<type-specifier>}+ <declarator>
-                          | {<type-specifier>}+ <abstract-declarator>
-                          | {<type-specifier>}+
+<parameter-list>                ::= <parameter-declaration> 
+                                    | <parameter-list> "," <parameter-declaration>
 
-<abstract-declarator> ::= <pointer>
-                        | <pointer> <direct-abstract-declarator>
-                        | <direct-abstract-declarator>
+<parameter-declaration>         ::= {<type-specifier>}+ <declarator>
+                                    | {<type-specifier>}+ <abstract-declarator>
+                                    | {<type-specifier>}+
 
-<direct-abstract-declarator> ::=  ( <abstract-declarator> )
-                               | {<direct-abstract-declarator>}? [ {<logical-or-expression>}? ]
-                               | {<direct-abstract-declarator>}? ( {<parameter-type-list>}? )
+<abstract-declarator>           ::= <pointer>
+                                    | <pointer> <direct-abstract-declarator>
+                                    | <direct-abstract-declarator>
 
-<declaration> ::=  {<type-specifier>}+ {<init-declarator>}* ;
+<direct-abstract-declarator>    ::=  "(" <abstract-declarator> ")"
+                                    | {<direct-abstract-declarator>}? "[" {<logical-or-expression>}? "]"
+                                    | {<direct-abstract-declarator>}? "(" {<parameter-type-list>}? ")"
 
-<init-declarator> ::= <declarator> | <declarator> = <initializer>
+<declaration>                   ::=  {<type-specifier>}+ {<init-declarator>}* ";"
 
-<initializer> ::= <assignment-expression>
-                | { <initializer-list> }
-                | { <initializer-list> , }
+<init-declarator>               ::= <declarator> 
+                                    | <declarator> "=" <initializer>
 
-<initializer-list> ::= <initializer> | <initializer-list> , <initializer>
+<initializer>                   ::= <assignment-expression>
+                                    | "{" <initializer-list> "}"
+                                    | "{" <initializer-list> "," "}"
 
-<compound-statement> ::= { {<declaration>}* {<statement>}* }
+<initializer-list>              ::= <initializer> 
+                                    | <initializer-list> "," <initializer>
 
-<statement> ::=  <expression-statement>
-              | <compound-statement>
-              | <selection-statement>
-              | <iteration-statement>
-              | <jump-statement>
+<compound-statement>            ::= "{" {<declaration>}* {<statement>}* "}"
 
-<expression-statement> ::= {<expression>}? ;
+<statement>                     ::=  <expression-statement>
+                                    | <compound-statement>
+                                    | <selection-statement>
+                                    | <iteration-statement>
+                                    | <jump-statement>
 
-<selection-statement> ::= if ( <expression> ) <statement>
-                        | if ( <expression> ) <statement> else <statement>
+<expression-statement>          ::= {<expression>}? ";"
 
-<iteration-statement> ::= loop( <expression> ) <statement>
-                        | do <statement> loop ( <expression> ) ;
+<selection-statement>           ::= "if" "(" <expression> ")" <statement>
+                                    | "if" "(" <expression> ")" <statement> "else" <statement>
 
-<jump-statement> ::= jump <identifier> ;
-                   | go;
-                   | stop ;
-                   | end {<expression>}? ;
+<iteration-statement>           ::= "loop" "(" <expression> ")" <statement>
+                                    | "do" <statement> "loop" "(" <expression> ")" ";"
+
+<jump-statement>                ::= "jump" <identifier> ";"
+                                    | "go" ";"
+                                    | "stop" ";"
+                                    | "end" {<expression>}? ";"
 
