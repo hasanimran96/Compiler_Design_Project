@@ -18,153 +18,158 @@ specify its precedence and associativity, all at once.
 These are called precedence declarations.
 */
 
+%token CHAR REAL NUM POSITIVE NONE
+%token STOP GO DO ELSE JUMP IF END LOOP
+%token SIZE IDENTIFIER CONSTANT STRING
 Bison declarations
 
 %%
 translation_unit: external_declaration
-	| translation_unit external_declaration
-	;
+			| translation_unit external_declaration
+			;
 
 
-external-declaration: function-definition 
-                                    | declaration
+external_declaration: function_definition 
+			| declaration
+			;
 
-function-definition: {type}* declarator {declaration}* compound-statement
+function_definition: {type}* declarator {declaration}* compound_statement
 
-type: "none" 
-                                    | "char" 
-                                    | "num" 
-                                    | "real" 
-                                    | "positive"
+type: 'none' 
+                                    | 'char' 
+                                    | 'num' 
+                                    | 'real' 
+                                    | 'positive'
+                                    ;
 
-declarator: {pointer}? direct-declarator
+declarator: {pointer}? direct_declarator
 
 pointer: *{pointer}?
 
-direct-declarator: identifier
-                                    | "(" declarator ")"
-                                    | direct-declarator "[" {or-expression}? "]"
-                                    | direct-declarator "(" parameter-type-list ")"
-                                    | direct-declarator "(" {identifier}* ")"
+direct_declarator: identifier
+                                    | '(' declarator ')'
+                                    | direct_declarator '[' {or_expression}? ']'
+                                    | direct_declarator '(' parameter_type_list ')'
+                                    | direct_declarator '(' {identifier}* ')'
 
-or-expression: and-expression
-                                    | or-expression "||" and-expression
+or_expression: and_expression
+                                    | or_expression '||' and_expression
 
 
-and-expression: equality-expression
-                                    | and-expression "&&" equality-expression
+and_expression: equality_expression
+                                    | and_expression '&&' equality_expression
 	
-equality-expression: relational-expression
-                                    | equality-expression "==" relational-expression
-                                    | equality-expression "!=" relational-expression
+equality_expression: relational_expression
+                                    | equality_expression '==' relational_expression
+                                    | equality_expression '!=' relational_expression
 
-relational-expression: additive-expression
-                                    | relational-expression "" additive-expression
-                                    | relational-expression "" additive-expression
-                                    | relational-expression "=" additive-expression
-                                    | relational-expression "=" additive-expression
+relational_expression: additive_expression
+                                    | relational_expression "<" additive_expression
+                                    | relational_expression ">" additive_expression
+                                    | relational_expression "<=" additive_expression
+                                    | relational_expression ">=" additive_expression
 
-additive-expression: multiplicative-expression
-                                    | additive-expression "+" multiplicative-expression
-                                    | additive-expression "-" multiplicative-expression
+additive_expression: multiplicative_expression
+                                    | additive_expression "+" multiplicative_expression
+                                    | additive_expression "-' multiplicative_expression
 
-multiplicative-expression: cast-expression
-                                    | multiplicative-expression "*" cast-expression
-                                    | multiplicative-expression "/" cast-expression
-                                    | multiplicative-expression "%" cast-expression
+multiplicative_expression: cast_expression
+                                    | multiplicative_expression '*' cast_expression
+                                    | multiplicative_expression '/' cast_expression
+                                    | multiplicative_expression '%' cast_expression
 
-cast-expression: unary-expression 
-                                    | "(" type-name ")" cast-expression
+cast_expression: unary_expression 
+                                    | '(' type_name ')' cast_expression
 
-unary-expression: postfix-expression
-                                    | unary-operator cast-expression
-                                    | "size" unary-expression
-                                    | "size" type-name
+unary_expression: postfix_expression
+                                    | unary_operator cast_expression
+                                    | 'size' unary_expression
+                                    | 'size' type_name
 
-postfix-expression: primary-expression
-                                    | postfix-expression "[" expression "]"
-                                    | postfix-expression "(" {assignment-expression}* ")"
+postfix_expression: primary_expression
+                                    | postfix_expression '[' expression ']'
+                                    | postfix_expression '(' {assignment_expression}* ')'
 
-primary-expression: identifier
+primary_expression: identifier
                                     | constant
                                     | words
-                                    | "(" expression ")"
+                                    | '(' expression ')'
 
 constant: number 
                                     | character 
-                                    | real-number
+                                    | real_number
 
-expression: assignment-expression 
-                                    | expression "," assignment-expression
+expression: assignment_expression 
+                                    | expression ',' assignment_expression
 
-assignment-expression: or-expression
-                                    | unary-expression assignment-operator assignment-expression
+assignment_expression: or_expression
+                                    | unary_expression assignment_operator assignment_expression
 
-assignment-operator: "=" 
-                                    | "*=" 
-                                    | "/="
-                                    | "%=" 
-                                    | "+=" 
-                                    | "-=" 
+assignment_operator: '=' 
+                                    | '*=' 
+                                    | '/='
+                                    | '%=' 
+                                    | '+=' 
+                                    | '-=' 
 
-unary-operator: "&" 
-                                    | "*" 
-                                    | "+" 
-                                    | "-" 
-                                    | "!"
+unary_operator: '&' 
+                                    | '*' 
+                                    | '+' 
+                                    | '-' 
+                                    | '!'
 
-type-name: {specifier-qualifier}+ {abstract-declarator}?
+type_name: {specifier_qualifier}+ {abstract_declarator}?
 
-parameter-type-list: parameter-list 
-                                    | parameter-list "," ...
+parameter_type_list: parameter_list 
+                                    | parameter_list ',' ...
 
-parameter-list: parameter-declaration 
-                                    | parameter-list "," parameter-declaration
+parameter_list: parameter_declaration 
+                                    | parameter_list ',' parameter_declaration
 
-parameter-declaration: {type}+ declarator
-                                    | {type}+ abstract-declarator
+parameter_declaration: {type}+ declarator
+                                    | {type}+ abstract_declarator
                                     | {type}+
 
-abstract-declarator: pointer
-                                    | pointer direct-abstract-declarator
-                                    | direct-abstract-declarator
+abstract_declarator: pointer
+                                    | pointer direct_abstract_declarator
+                                    | direct_abstract_declarator
 
-direct-abstract-declarator:  "(" abstract-declarator ")"
-                                    | {direct-abstract-declarator}? "[" {or-expression}? "]"
-                                    | {direct-abstract-declarator}? "(" {parameter-type-list}? ")"
+direct_abstract_declarator:  '(' abstract_declarator ')'
+                                    | {direct_abstract_declarator}? '[' {or_expression}? ']'
+                                    | {direct_abstract_declarator}? '(' {parameter_type_list}? ')'
 
-declaration:  {type}+ {init-declarator}* ";"
+declaration:  {type}+ {init_declarator}* ';'
 
-init-declarator: declarator 
-                                    | declarator "=" initializer
+init_declarator: declarator 
+                                    | declarator '=' initializer
 
-initializer: assignment-expression
-                                    | "{" initializer-list "}"
-                                    | "{" initializer-list "," "}"
+initializer: assignment_expression
+                                    | '{' initializer_list '}'
+                                    | '{' initializer_list ',' '}'
 
-initializer-list: initializer 
-                                    | initializer-list "," initializer
+initializer_list: initializer 
+                                    | initializer_list ',' initializer
 
-compound-statement: "{" {declaration}* {statement}* "}"
+compound_statement: '{' {declaration}* {statement}* '}'
 
-statement:  expression-statement
-                                    | compound-statement
-                                    | condition-statement
-                                    | iteration-statement
-                                    | jump-statement
+statement:  expression_statement
+                                    | compound_statement
+                                    | condition_statement
+                                    | iteration_statement
+                                    | jump_statement
 
-expression-statement: {expression}? ";"
+expression_statement: {expression}? ';'
 
-condition-statement: "if" "(" expression ")" statement
-                                    | "if" "(" expression ")" statement "else" statement
+condition_statement: 'if' '(' expression ')' statement
+                                    | 'if' '(' expression ')' statement 'else' statement
 
-iteration-statement: "loop" "(" expression ")" statement
-                                    | "do" statement "loop" "(" expression ")" ";"
+iteration_statement: 'loop' '(' expression ')' statement
+                                    | 'do' statement 'loop' '(' expression ')' ';'
 
-jump-statement: "jump" identifier ";"
-                                    | "go" ";"
-                                    | "stop" ";"
-                                    | "end" {expression}? ";"
+jump_statement: 'jump' identifier ';'
+                                    | 'go' ';'
+                                    | 'stop' ';'
+                                    | 'end' {expression}? ';'
 
 %%
 
