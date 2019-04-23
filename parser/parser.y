@@ -51,16 +51,24 @@ declarator
 				: {pointer}? direct_declarator;
 
 pointer
-				: *{pointer}?;
-
-direct_declarator
-				: identifier
-				| '(' declarator ')'
-				| direct_declarator '[' {or_expression}? ']'
-				| direct_declarator '(' parameter_type_list ')'
-				| direct_declarator '(' {identifier}* ')'
+				: '*'
+				| '*' pointer
 				;
 
+direct_declarator
+				: IDENTIFIER
+				| '(' declarator ')'
+				| direct_declarator '[' assignment_expression ']'
+				| direct_declarator '[' '*' ']'
+				| direct_declarator '[' ']'
+				| direct_declarator '(' parameter_type_list ')'
+				| direct_declarator '(' identifier_list ')'
+				| direct_declarator '(' ')'
+				;
+identifier_list
+				: IDENTIFIER
+				| identifier_list ',' IDENTIFIER
+				;
 or_expression
 				: and_expression
 				| or_expression OR and_expression
@@ -177,9 +185,17 @@ abstract_declarator
 				;
 
 direct_abstract_declarator
-				:  '(' abstract_declarator ')'
-				| {direct_abstract_declarator}? '[' {or_expression}? ']'
-				| {direct_abstract_declarator}? '(' {parameter_type_list}? ')'
+				: '(' abstract_declarator ')'
+				| '[' ']'
+				| '[' assignment_expression ']'
+				| direct_abstract_declarator '[' ']'
+				| direct_abstract_declarator '[' assignment_expression ']'
+				| '[' '*' ']'
+				| direct_abstract_declarator '[' '*' ']'
+				| '(' ')'
+				| '(' parameter_type_list ')'
+				| direct_abstract_declarator '(' ')'
+				| direct_abstract_declarator '(' parameter_type_list ')'
 				;
 
 declaration
@@ -203,8 +219,19 @@ initializer_list
 				;
 
 compound_statement
-				: '{' {declaration}* {statement}* '}';
+				: '{' '}'
+				| '{' block_item_list '}'
+				;
 
+block_item_list
+				: block_item
+				| block_item_list block_item
+				;
+
+block_item
+				: declaration
+				| statement
+				;
 statement  
 				:expression_statement
 				| compound_statement
@@ -226,10 +253,11 @@ iteration_statement
 				;
 				
 jump_statement
-				: JUMP identifier ';'
+				: JUMP IDENTIFIER ';'
 				| GO ';'
 				| STOP ';'
-				| END {expression}? ';'
+				| END ';'
+				| END expression ';'
 				;
 %%
 
