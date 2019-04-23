@@ -21,6 +21,7 @@ These are called precedence declarations.
 %token CHAR REAL NUM POSITIVE NONE
 %token STOP GO DO ELSE JUMP IF END LOOP
 %token ELLIPSIS
+%token INLINE
 %token	ADDEQ SUBEQ MULEQ DIVEQ MODEQ AND OR LE GE EQUAL NOTEQ
 
 %start translation_unit
@@ -37,8 +38,15 @@ external_declaration
 				;
 
 function_definition
-				: {type}* declarator {declaration}* compound_statement;
+				: declaration_specifiers declarator declaration_list compound_statement
+				| declaration_specifiers declarator compound_statement
+				;
 
+declaration_list
+				: declaration
+				| declaration_list declaration
+				;
+				
 type
 				: NONE
 				| CHAR 
@@ -48,7 +56,9 @@ type
 				;
 
 declarator
-				: {pointer}? direct_declarator;
+				: pointer direct_declarator
+				| direct_declarator
+				;
 
 pointer
 				: '*'
@@ -159,7 +169,13 @@ unary_operator
 				;
 
 type_name
-				: {specifier_qualifier}+ {abstract_declarator}?
+				: specifier_qualifier_list
+				| specifier_qualifier_list abstract_declarator
+				;
+
+specifier_qualifier_list
+				: type specifier_qualifier_list
+				| type
 				;
 
 parameter_type_list
@@ -173,11 +189,10 @@ parameter_list
 				;
 
 parameter_declaration
-				: {type}+ declarator
-				| {type}+ abstract_declarator
-				| {type}+
+				: declaration_specifiers declarator
+				| declaration_specifiers abstract_declarator
+				| declaration_specifiers
 				;
-
 abstract_declarator
 				: pointer
 				| pointer direct_abstract_declarator
@@ -199,7 +214,25 @@ direct_abstract_declarator
 				;
 
 declaration
-				:  {type}+ {init_declarator}* ';';
+				: declaration_specifiers ';'
+				| declaration_specifiers init_declarator_list ';'
+				;
+
+declaration_specifiers
+				: type_specifier
+				| type_specifier declaration_specifiers
+				| function_specifier
+				| function_specifier declaration_specifiers
+				;
+
+function_specifier
+				: INLINE
+				;
+				
+init_declarator_list
+				: init_declarator
+				| init_declarator_list ',' init_declarator
+				;
 
 init_declarator
 				: declarator 
@@ -240,7 +273,9 @@ statement
 				| jump_statement
 				;
 expression_statement
-				: {expression}? ';';
+				: ';'
+				| expression ';'
+				;
 
 condition_statement
 				: IF '(' expression ')' statement
@@ -260,5 +295,13 @@ jump_statement
 				| END expression ';'
 				;
 %%
+#include <stdio.h>
 
-Additional C code
+extern char yytext[];
+extern int column;
+
+void yyerror(char const *s)
+{
+	fflush(stdout);
+	printf("\n%*s\n%*s\n", column, "^", column, s);
+}
