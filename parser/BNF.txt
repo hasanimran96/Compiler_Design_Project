@@ -3,9 +3,9 @@
 <external-declaration>          ::= <function-definition> 
                                     | <declaration>
 
-<function-definition>           ::= {<type-specifier>}* <declarator> {<declaration>}* <compound-statement>
+<function-definition>           ::= {<type>}* <declarator> {<declaration>}* <compound-statement>
 
-<type-specifier>                ::= "none" 
+<type>                ::= "none" 
                                     | "char" 
                                     | "num" 
                                     | "real" 
@@ -17,16 +17,16 @@
 
 <direct-declarator>             ::= <identifier>
                                     | "(" <declarator> ")"
-                                    | <direct-declarator> "[" {logical-or-expression}? "]"
+                                    | <direct-declarator> "[" {or-expression}? "]"
                                     | <direct-declarator> "(" <parameter-type-list> ")"
                                     | <direct-declarator> "(" {<identifier>}* ")"
 
-<logical-or-expression>         ::= <logical-and-expression>
-                                    | <logical-or-expression> "||" <logical-and-expression>
+<or-expression>         ::= <and-expression>
+                                    | <or-expression> "||" <and-expression>
 
 
-<logical-and-expression>        ::= <equality-expression>
-                                    | <logical-and-expression> "&&" <equality-expression>
+<and-expression>        ::= <equality-expression>
+                                    | <and-expression> "&&" <equality-expression>
 	
 <equality-expression>           ::= <relational-expression>
                                     | <equality-expression> "==" <relational-expression>
@@ -71,7 +71,7 @@
 <expression>                    ::= <assignment-expression> 
                                     | <expression> "," <assignment-expression>
 
-<assignment-expression>         ::= <logical-or-expression>
+<assignment-expression>         ::= <or-expression>
                                     | <unary-expression> <assignment-operator> <assignment-expression>
 
 <assignment-operator>           ::= "=" 
@@ -95,19 +95,19 @@
 <parameter-list>                ::= <parameter-declaration> 
                                     | <parameter-list> "," <parameter-declaration>
 
-<parameter-declaration>         ::= {<type-specifier>}+ <declarator>
-                                    | {<type-specifier>}+ <abstract-declarator>
-                                    | {<type-specifier>}+
+<parameter-declaration>         ::= {<type>}+ <declarator>
+                                    | {<type>}+ <abstract-declarator>
+                                    | {<type>}+
 
 <abstract-declarator>           ::= <pointer>
                                     | <pointer> <direct-abstract-declarator>
                                     | <direct-abstract-declarator>
 
 <direct-abstract-declarator>    ::=  "(" <abstract-declarator> ")"
-                                    | {<direct-abstract-declarator>}? "[" {<logical-or-expression>}? "]"
+                                    | {<direct-abstract-declarator>}? "[" {<or-expression>}? "]"
                                     | {<direct-abstract-declarator>}? "(" {<parameter-type-list>}? ")"
 
-<declaration>                   ::=  {<type-specifier>}+ {<init-declarator>}* ";"
+<declaration>                   ::=  {<type>}+ {<init-declarator>}* ";"
 
 <init-declarator>               ::= <declarator> 
                                     | <declarator> "=" <initializer>
@@ -123,13 +123,13 @@
 
 <statement>                     ::=  <expression-statement>
                                     | <compound-statement>
-                                    | <selection-statement>
+                                    | <condition-statement>
                                     | <iteration-statement>
                                     | <jump-statement>
 
 <expression-statement>          ::= {<expression>}? ";"
 
-<selection-statement>           ::= "if" "(" <expression> ")" <statement>
+<condition-statement>           ::= "if" "(" <expression> ")" <statement>
                                     | "if" "(" <expression> ")" <statement> "else" <statement>
 
 <iteration-statement>           ::= "loop" "(" <expression> ")" <statement>
@@ -139,4 +139,3 @@
                                     | "go" ";"
                                     | "stop" ";"
                                     | "end" {<expression>}? ";"
-
