@@ -5,7 +5,7 @@
 
 <function-definition>           ::= {<type>}* <declarator> {<declaration>}* <compound-statement>
 
-<type>                ::= "none" 
+<type>                		::= "none" 
                                     | "char" 
                                     | "num" 
                                     | "real" 
@@ -21,11 +21,11 @@
                                     | <direct-declarator> "(" <parameter-type-list> ")"
                                     | <direct-declarator> "(" {<identifier>}* ")"
 
-<or-expression>         ::= <and-expression>
+<or-expression>         	::= <and-expression>
                                     | <or-expression> "||" <and-expression>
 
 
-<and-expression>        ::= <equality-expression>
+<and-expression>        	::= <equality-expression>
                                     | <and-expression> "&&" <equality-expression>
 	
 <equality-expression>           ::= <relational-expression>
