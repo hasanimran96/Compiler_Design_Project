@@ -16,6 +16,10 @@
 
 6. http://aquamentus.com/flex_bison.html
 
+7. http://www.quut.com/c/ANSI-C-grammar-l-1995.html
+
+8. https://stackoverflow.com/questions/47420730/linker-error-multiple-definition-of-yylex
+
 ## Steps to execute the project
 
 1. lex finalexer.l
