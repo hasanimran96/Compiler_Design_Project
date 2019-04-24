@@ -1,6 +1,13 @@
 # Compiler_Design_Project
 
-## The is the term project for our Compiler Design class. 
+## The is the term project for our Compiler Design class.
+
+### Steps to execute the project:
+
+1. yacc parser.y
+2. lex finalexer.l 
+3. gcc y.tab.c -ll -ly
+4. ./a.out test
 
 ### References:
 
@@ -19,10 +26,3 @@
 7. http://www.quut.com/c/ANSI-C-grammar-l-1995.html
 
 8. https://stackoverflow.com/questions/47420730/linker-error-multiple-definition-of-yylex
-
-## Steps to execute the project
-
-1. lex finalexer.l
-2. yacc parser.y
-3. gcc y.tab.c -ll -ly
-4. ./a.out test
