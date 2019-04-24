@@ -14,6 +14,8 @@
 
 5. https://gist.github.com/codebrainz/2933703
 
+6. http://aquamentus.com/flex_bison.html
+
 ## Steps to execute the project
 
 1. lex finalexer.l
