@@ -13,3 +13,10 @@
 4. https://github.com/SilverScar/C-Language-Parser
 
 5. https://gist.github.com/codebrainz/2933703
+
+## Steps to execute the project
+
+1. lex finalexer.l
+2. yacc parser.y
+3. gcc y.tab.c -ll -ly
+4. ./a.out test
