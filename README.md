@@ -4,9 +4,10 @@
 
 ### Steps to execute the project:
 
-1. yacc parser.y
-2. lex finalexer.l 
-3. gcc y.tab.c -ll -ly
+1. yacc parser.y or bison parser.y -d 
+the -d is used to generate header file parser.tab.h
+2. lex finalexer.l or flex finalexer.l 
+3. gcc y.tab.c -ll -ly or gcc parser.tab.c -ll -ly -w
 4. ./a.out test
 
 ### References:
