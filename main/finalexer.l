@@ -3,13 +3,15 @@ L		[a-zA-Z_]
 %option yylineno
 %{
 #include <stdio.h>
-//#include "y.tab.h" Bison file here
+//#include "parser.tab.h" //Bison file here
+
 int error=0;
 
 void print_token(char*,char*,int);
 void count(void);
 void comment(void);
 
+extern int yylex();
 %}
 
 %%
@@ -17,18 +19,19 @@ void comment(void);
 "//"[^\n]*		{ /* consume //-comment */ }
 
 "char" 			{ count(); return(CHAR);}
-"real" 			{ count(); return REAL;}
-"num"			{ count(); return NUM;}
-"positive" 		{ count(); return POSITIVE;}
-"none"			{ count(); return NONE;}
-"stop" 			{ count(); return STOP;}
-"go" 			{ count(); return GO;}
-"do" 			{ count(); return DO;}
-"else" 			{ count(); return ELSE:}
-"jump" 			{ count(); return JUMP;}
-"if"			{ count(); return IF;}
-"end" 			{ count(); return END;}
-"loop"			{ count(); return LOOP;}
+"real" 			{ count(); return(REAL);}
+"num"			{ count(); return(NUM);}
+"positive" 		{ count(); return(POSITIVE);}
+"none"			{ count(); return(NONE);}
+"stop" 			{ count(); return(STOP);}
+"go" 			{ count(); return(GO);}
+"do" 			{ count(); return(DO);}
+"else" 			{ count(); return(ELSE);}
+"jump" 			{ count(); return(JUMP);}
+"if"			{ count(); return(IF);}
+"end" 			{ count(); return(END);}
+"loop"			{ count(); return(LOOP);}
+
 "size" 			{ count(); return SIZE;}
 
 {L}({L}|{D})*		{ count(); return(IDENTIFIER); }
@@ -38,17 +41,18 @@ L?'(\\.|[^\\'\n])+'	{ count(); return(CONSTANT); }
 {D}+"."{D}*		{ count(); return(CONSTANT); }
 L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING); }
 
-"+="			{ count(); print_token(yytext,NULL,0);}
-"-="			{ count(); print_token(yytext,NULL,0);}
-"*="			{ count(); print_token(yytext,NULL,0);}
-"/="			{ count(); print_token(yytext,NULL,0);}
-"%="			{ count(); print_token(yytext,NULL,0);}
-"&&"			{ count(); print_token(yytext,NULL,0);}
-"||"			{ count(); print_token(yytext,NULL,0);}
-"<="			{ count(); print_token(yytext,NULL,0);}
-">="			{ count(); print_token(yytext,NULL,0);}
-"=="			{ count(); print_token(yytext,NULL,0);}
-"!="			{ count(); print_token(yytext,NULL,0);}
+"..."			{ count(); return(ELLIPSIS); }
+"+="			{ count(); return(ADDEQ); }
+"-="			{ count(); return(SUBEQ); }
+"*="			{ count(); return(MULEQ); }
+"/="			{ count(); return(DIVEQ); }
+"%="			{ count(); return(MODEQ); }
+"&&"			{ count(); return(AND); }
+"||"			{ count(); return(OR); }
+"<="			{ count(); return(LE); }
+">="			{ count(); return(GE); }
+"=="			{ count(); return(EQUAL); }
+"!="			{ count(); return(NOTEQ); }
 ";"			{ count(); return(';'); }
 "{"			{ count(); return('{'); }
 "}"			{ count(); return('}'); }
@@ -102,7 +106,7 @@ void count(void){
 			column++;
 	ECHO;
 }
-
+/*
 void print_token(char* type, char*text,int chk)
 {
 	FILE *outfile = fopen("flex_output.txt" , "a");
@@ -115,19 +119,18 @@ void print_token(char* type, char*text,int chk)
 
 int main(int argc , char *argv[]) {	
 	FILE *myfile = fopen(argv[1], "r");
-	FILE *outfile = fopen("flex_output.txt" , "w");
+	//FILE *outfile = fopen("flex_output.txt" , "w");
 
 	if (!myfile) {
 		printf("Input file not found\n");
 		return -1;
 	}
 	yyin = myfile;
-	printf("1");
 	yylex();
 	if(error)
 		printf("\nLexical error on Line: %d:%d : %s\n",yylineno,column, yytext);
 	else
 		printf("\nSuccess! Tokens Generated\n");
 	fclose(myfile);
-	fclose(outfile);
-}
+	//fclose(outfile);
+}*/
