@@ -99,13 +99,13 @@ identifier_list
 			| identifier_list ',' IDENTIFIER
 			;
 or_expression
-			: and_expression
-			| or_expression OR and_expression
+			: and_expression{push();}{codegen_logical();}
+			| or_expression{push();} OR and_expression{codegen_logical();}
 			;
 
 and_expression
-			: equality_expression
-			| and_expression AND equality_expression
+			: equality_expression{push();}
+			| and_expression{push();} AND equality_expression
 			;
 
 equality_expression

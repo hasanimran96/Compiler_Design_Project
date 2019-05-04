@@ -10,7 +10,7 @@ the -d is used to generate header file parser.tab.h
 3. gcc y.tab.c -ll -ly or gcc parser.tab.c -ll -ly -w
 4. ./a.out test
 
-### References:
+## References:
 
 1. http://dinosaur.compilertools.net/bison/bison_6.html?fbclid=IwAR0VicThJFmpGt9gD_kAYhPt9EhaneTwPtWyzD0NUGalWaSnE0-2YSnD9rQ
 
