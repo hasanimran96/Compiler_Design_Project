@@ -1,0 +1,57 @@
+v
+translation_unit
+			: external_declaration
+			| translation_unit external_declaration
+			;
+
+
+external_declaration
+			: function_definition 
+			;
+
+function_definition
+			: declaration_specifiers declarator declaration_list 
+
+compound_statement
+			| declaration_specifiers declarator compound_statement
+			;
+
+declaration_list
+			: declaration
+			| declaration_list declaration
+			;
+
+cast_expression
+			: unary_expression 
+			| '(' type_name ')' cast_expression
+			;
+
+
+unary_expression
+			:SIZE unary_expression
+			| SIZE type_name
+
+
+assignment_operator
+			: '=' 
+			| MULEQ 
+			| DIVEQ
+			| MODEQ 
+			| ADDEQ 
+			| SUBEQ 
+			;
+
+
+function_specifier
+			: INLINE
+			;
+
+declaration_specifiers
+			:  function_specifier
+			| function_specifier declaration_specifiers
+			
+
+parameter_type_list
+			: parameter_list 
+			| parameter_list ',' ELLIPSIS
+			;
