@@ -32,8 +32,6 @@ extern int yylex();
 "end" 			{ count(); return(END);}
 "loop"			{ count(); return(LOOP);}
 
-"size" 			{ count(); return SIZE;}
-
 {L}({L}|{D})*		{ count(); return(IDENTIFIER); }
 {D}+			{ count(); return(CONSTANT); }
 L?'(\\.|[^\\'\n])+'	{ count(); return(CONSTANT); }
@@ -41,12 +39,6 @@ L?'(\\.|[^\\'\n])+'	{ count(); return(CONSTANT); }
 {D}+"."{D}*		{ count(); return(CONSTANT); }
 L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING); }
 
-"..."			{ count(); return(ELLIPSIS); }
-"+="			{ count(); return(ADDEQ); }
-"-="			{ count(); return(SUBEQ); }
-"*="			{ count(); return(MULEQ); }
-"/="			{ count(); return(DIVEQ); }
-"%="			{ count(); return(MODEQ); }
 "&&"			{ count(); return(AND); }
 "||"			{ count(); return(OR); }
 "<="			{ count(); return(LE); }
