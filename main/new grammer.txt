@@ -1,0 +1,84 @@
+program_start
+            : NONE main '(' ')' compound_statement
+			
+type
+			: NONE
+			| CHAR 
+			| NUM 
+			| REAL 
+			| POSITIVE
+			;
+
+pointer
+			: '*'
+			| '*' pointer
+			;
+
+/*need to change this*/ used hamza's
+declarator
+            :
+            NUMBERTYPE identifier semicolon 
+            | STRINGTYPE identifier semicolon 
+            | FLOATTYPE identifier semicolon 
+            | BOOLTYPE identifier semicolon
+            | NUMBERTYPE identifier EA integer semicolon {printf("%s = %d\n", $2, $4);}
+            | STRINGTYPE identifier EA stringliteral semicolon {printf("%s = %s\n", $2, $4);}
+            | FLOATTYPE identifier EA decimal semicolon {printf("%s = %f\n", $2, $4);}
+            | BOOLTYPE identifier EA BOOLOPTIONS semicolon {printf("%s = %s\n", $2, $4);}
+            ; 
+
+expression 			
+            : expression LT{push();} expression {codegen_logical();}
+            | expression LE{push();} expression {codegen_logical();}
+            | expression GT{push();} expression {codegen_logical();}
+            | expression GE{push();} expression {codegen_logical();}
+            | expression NE{push();} expression {codegen_logical();}
+            | expression EQ{push();} expression {codegen_logical();}
+            | expression '+'{push();} expression {codegen_algebric();}
+            | expression '-'{push();} expression {codegen_algebric();}
+            | expression '*'{push();} expression {codegen_algebric();}
+            | expression '/'{push();} expression {codegen_algebric();}
+            | '(' expression ')'
+            | IDENTIFIER {check();push();}
+            | NUM {push();}
+            | CHAR 
+            | NUM 
+            | REAL 
+            | POSITIVE
+            ;
+
+compound_statement
+			: '{' '}'
+			| '{' statement '}'
+			;
+
+statement  
+			:expressionression_statement
+			| compound_statement
+			| condition_statement
+			| iteration_statement
+			| jump_statement
+			;
+            
+expressionression_statement
+			: ';'
+			| expressionression ';'
+			;
+
+condition_statement
+			: IF '(' expressionression ')' statement %prec LOWER_THAN_ELSE ;
+			| IF '(' expressionression ')' statement ELSE statement
+			;
+
+iteration_statement
+			: LOOP '(' expressionression ')' statement
+			| DO statement LOOP '(' expressionression ')' ';'
+			;
+			
+jump_statement
+			: JUMP identifier ';'
+			| GO ';'
+			| STOP ';'
+			| END ';'
+			| END expressionression ';'
+			;
