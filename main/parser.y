@@ -43,7 +43,7 @@ These are called precedence declarations.
 
 %left AND OR LE GE EQUAL NOTEQ
 
-%start translation_unit
+%start external_declaration
 
 %%
 external_declaration
@@ -75,7 +75,6 @@ direct_declarator
 			| direct_declarator '[' assignment_expression ']'
 			| direct_declarator '[' '*' ']'
 			| direct_declarator '[' ']'
-			| direct_declarator '(' parameter_list ')'
 			| direct_declarator '(' identifier_list ')'
 			| direct_declarator '(' ')'
 			;
@@ -173,17 +172,6 @@ specifier_qualifier_list
 			| type
 			;
 
-
-parameter_list
-			: parameter_declaration 
-			| parameter_list ',' parameter_declaration
-			;
-
-parameter_declaration
-			: declaration_specifiers declarator
-			| declaration_specifiers abstract_declarator
-			| declaration_specifiers
-			;
 abstract_declarator
 			: pointer
 			| pointer direct_abstract_declarator
@@ -198,10 +186,6 @@ direct_abstract_declarator
 			| direct_abstract_declarator '[' assignment_expression ']'
 			| '[' '*' ']'
 			| direct_abstract_declarator '[' '*' ']'
-			| '(' ')'
-			| '(' parameter_list ')'
-			| direct_abstract_declarator '(' ')'
-			| direct_abstract_declarator '(' parameter_list ')'
 			;
 
 declaration
