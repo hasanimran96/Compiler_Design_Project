@@ -30,14 +30,12 @@ Use the %left, %right or %nonassoc declaration to declare a token and
 specify its precedence and associativity, all at once. 
 These are called precedence declarations.
 */
-%token SIZE IDENTIFIER CONSTANT STRING
+%token IDENTIFIER CONSTANT STRING
 %token CHAR REAL NUM POSITIVE NONE
 %token STOP GO DO JUMP IF END LOOP
 
 %nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
-
-%right ADDEQ SUBEQ MULEQ DIVEQ MODEQ
 
 %left AND OR LE GE EQUAL NOTEQ
 
