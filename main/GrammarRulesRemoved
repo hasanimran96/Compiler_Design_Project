@@ -1,13 +1,12 @@
-v
+external_declaration
+			: function_definition 
+			;
+
 translation_unit
 			: external_declaration
 			| translation_unit external_declaration
 			;
 
-
-external_declaration
-			: function_definition 
-			;
 
 function_definition
 			: declaration_specifiers declarator declaration_list 
