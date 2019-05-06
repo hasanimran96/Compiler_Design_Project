@@ -49,7 +49,6 @@ L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING); }
 "{"			{ count(); return('{'); }
 "}"			{ count(); return('}'); }
 ","			{ count(); return(','); }
-":"			{ count(); return(':'); }
 "="			{ count(); return('='); }
 "("			{ count(); return('('); }
 ")"			{ count(); return(')'); }
