@@ -46,24 +46,9 @@ These are called precedence declarations.
 %start translation_unit
 
 %%
-translation_unit
-			: external_declaration
-			| translation_unit external_declaration
-			;
-
 external_declaration
-			: function_definition 
+			: compound_statement
 			| declaration
-			;
-
-function_definition
-			: declaration_specifiers declarator declaration_list compound_statement
-			| declaration_specifiers declarator compound_statement
-			;
-
-declaration_list
-			: declaration
-			| declaration_list declaration
 			;
 			
 type
@@ -90,7 +75,7 @@ direct_declarator
 			| direct_declarator '[' assignment_expression ']'
 			| direct_declarator '[' '*' ']'
 			| direct_declarator '[' ']'
-			| direct_declarator '(' parameter_type_list ')'
+			| direct_declarator '(' parameter_list ')'
 			| direct_declarator '(' identifier_list ')'
 			| direct_declarator '(' ')'
 			;
@@ -135,16 +120,10 @@ multiplicative_expression
 			| multiplicative_expression '%' cast_expression
 			;
 
-cast_expression
-			: unary_expression 
-			| '(' type_name ')' cast_expression
-			;
 
 unary_expression
 			: postfix_expression
 			| unary_operator cast_expression
-			| SIZE unary_expression
-			| SIZE type_name
 			;
 
 postfix_expression
@@ -172,17 +151,9 @@ expression
 
 assignment_expression
 			: or_expression
-			| unary_expression assignment_operator assignment_expression
+			| unary_expression '=' assignment_expression
 			;
 
-assignment_operator
-			: '=' 
-			| MULEQ 
-			| DIVEQ
-			| MODEQ 
-			| ADDEQ 
-			| SUBEQ 
-			;
 
 unary_operator
 			: '&' 
@@ -202,10 +173,6 @@ specifier_qualifier_list
 			| type
 			;
 
-parameter_type_list
-			: parameter_list 
-			| parameter_list ',' ELLIPSIS
-			;
 
 parameter_list
 			: parameter_declaration 
@@ -232,9 +199,9 @@ direct_abstract_declarator
 			| '[' '*' ']'
 			| direct_abstract_declarator '[' '*' ']'
 			| '(' ')'
-			| '(' parameter_type_list ')'
+			| '(' parameter_list ')'
 			| direct_abstract_declarator '(' ')'
-			| direct_abstract_declarator '(' parameter_type_list ')'
+			| direct_abstract_declarator '(' parameter_list ')'
 			;
 
 declaration
@@ -245,13 +212,8 @@ declaration
 declaration_specifiers
 			: type
 			| type declaration_specifiers
-			| function_specifier
-			| function_specifier declaration_specifiers
 			;
 
-function_specifier
-			: INLINE
-			;
 			
 init_declarator_list
 			: init_declarator
