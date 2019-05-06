@@ -33,8 +33,6 @@ These are called precedence declarations.
 %token SIZE IDENTIFIER CONSTANT STRING
 %token CHAR REAL NUM POSITIVE NONE
 %token STOP GO DO JUMP IF END LOOP
-%token ELLIPSIS
-%token INLINE
 
 %nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
