@@ -21,7 +21,6 @@ extern int yylex();
 "char" 			{ count(); return(CHAR);}
 "real" 			{ count(); return(REAL);}
 "num"			{ count(); return(NUM);}
-"positive" 		{ count(); return(POSITIVE);}
 "none"			{ count(); return(NONE);}
 "stop" 			{ count(); return(STOP);}
 "go" 			{ count(); return(GO);}
