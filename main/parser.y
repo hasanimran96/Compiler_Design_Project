@@ -17,14 +17,13 @@ extern int yylex();
 extern int yyparse();
 extern FILE *yyin;
 */
-
 extern FILE *fp;
 //FILE * f1;
 
 void yyerror(const char *s);
 
 %}
-
+%define parse.error verbose
 /*
 Use the %left, %right or %nonassoc declaration to declare a token and 
 specify its precedence and associativity, all at once. 
@@ -44,6 +43,7 @@ These are called precedence declarations.
 %start external_declaration
 
 %%
+
 external_declaration
 			: compound_statement
 			| declaration
@@ -80,13 +80,13 @@ identifier_list
 			| identifier_list ',' IDENTIFIER
 			;
 or_expression
-			: and_expression{push();}{codegen_logical();}
-			| or_expression{push();} OR and_expression{codegen_logical();}
+			: and_expression
+			| or_expression OR and_expression
 			;
 
 and_expression
-			: equality_expression{push();}
-			| and_expression{push();} AND equality_expression
+			: equality_expression
+			| and_expression AND equality_expression
 			;
 
 equality_expression
@@ -216,7 +216,7 @@ expression_statement
 			;
 
 condition_statement
-			: IF '(' expression ')' statement %prec LOWER_THAN_ELSE ;
+			: IF '(' expression ')' statement %prec LOWER_THAN_ELSE 
 			| IF '(' expression ')' statement ELSE statement
 			;
 
