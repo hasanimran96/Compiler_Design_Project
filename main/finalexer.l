@@ -33,9 +33,9 @@ extern int yylex();
 
 {L}({L}|{D})*		{ count(); return(IDENTIFIER); }
 {D}+			{ count(); return(CONSTANT); }
-L?'(\\.|[^\\'\n])+'	{ count(); return(CONSTANT); }
 {D}*"."{D}+		{ count(); return(CONSTANT); }
 {D}+"."{D}*		{ count(); return(CONSTANT); }
+L?'(\\.|[^\\'\n])+'	{ count(); return(CONSTANT); }
 L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING); }
 
 "&&"			{ count(); return(AND); }
