@@ -21,6 +21,11 @@ function_definition
 			| declaration_specifiers declarator compound_statement
 			;
 
+cast_expression
+			: unary_expression 
+			| '(' type_name ')' cast_expression
+			;
+
 type_name
 			: specifier_qualifier_list
 			| specifier_qualifier_list abstract_declarator
