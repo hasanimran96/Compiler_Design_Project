@@ -31,3 +31,9 @@ the -d is used to generate header file parser.tab.h
 9. https://www.geeksforgeeks.org/operators-c-c/
 
 10. https://www.youtube.com/watch?v=eF9qWbuQLuw
+
+11. https://www.youtube.com/watch?v=fDKfdyDWdE4
+
+----------------------------------------------
+
+bison parser.y --report=all
