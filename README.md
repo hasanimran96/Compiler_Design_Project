@@ -37,3 +37,5 @@ the -d is used to generate header file parser.tab.h
 ----------------------------------------------
 
 bison parser.y --report=all
+bison parser.y -o parser.cc
+gcc parser.cc -fno-diagnostics-show-caret
