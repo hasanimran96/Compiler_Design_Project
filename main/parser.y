@@ -39,6 +39,8 @@ These are called precedence declarations.
 
 %left AND OR LE GE EQUAL NOTEQ
 
+%right '='
+
 %start external_declaration
 
 %%
