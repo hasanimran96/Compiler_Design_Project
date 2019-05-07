@@ -34,6 +34,8 @@
 
 12. https://docs.microsoft.com/en-us/cpp/c-language/c-abstract-declarators?view=vs-2019
 
+13. https://github.com/ZhenoSan/ThreeAddressCode
+
 ----------------------------------------------
 
 bison parser.y --report=all  
@@ -49,3 +51,4 @@ x!=y is !(x==y) is (x==y)==0
 x-y is x+(-y)  
 x[y] is \*(x+y)  
 removed positive type (unsigned)  
+removed casting  
