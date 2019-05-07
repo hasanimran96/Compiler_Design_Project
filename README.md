@@ -5,7 +5,7 @@
 ### Steps to execute the project:
 
 1. make all
-2.make clean
+2. make clean
 3. ./a.out "code.ccc"
 
 ## References:
