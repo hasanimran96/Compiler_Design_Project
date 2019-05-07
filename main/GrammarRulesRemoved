@@ -1,3 +1,11 @@
+
+%right ADDEQ SUBEQ MULEQ DIVEQ MODEQ
+
+
+%left NEQ
+
+//removed tokens for ! and ... and :
+
 translation_unit
 			: external_declaration
 			| translation_unit external_declaration
@@ -9,22 +17,40 @@ external_declaration
 			;
 
 function_definition
-			: declaration_specifiers declarator declaration_list 
-
-compound_statement
+			: declaration_specifiers declarator declaration_list compound_statement
 			| declaration_specifiers declarator compound_statement
+			;
+
+type_name
+			: specifier_qualifier_list
+			| specifier_qualifier_list abstract_declarator
+			;
+
+specifier_qualifier_list
+			: type specifier_qualifier_list
+			| type
+			;
+
+abstract_declarator
+			: pointer
+			| pointer direct_abstract_declarator
+			| direct_abstract_declarator
+			;
+
+direct_abstract_declarator
+			: '(' abstract_declarator ')'
+			| '[' ']'
+			| '[' assignment_expression ']'
+			| direct_abstract_declarator '[' ']'
+			| direct_abstract_declarator '[' assignment_expression ']'
+			| '[' '*' ']'
+			| direct_abstract_declarator '[' '*' ']'
 			;
 
 declaration_list
 			: declaration
 			| declaration_list declaration
 			;
-
-cast_expression
-			: unary_expression 
-			| '(' type_name ')' cast_expression
-			;
-
 
 unary_expression
 			:SIZE unary_expression
