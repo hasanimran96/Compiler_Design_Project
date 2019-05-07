@@ -121,6 +121,11 @@ unary_expression
 			| unary_operator cast_expression
 			;
 
+cast_expression
+			: unary_expression 
+			| '(' type_name ')' cast_expression
+			;
+
 postfix_expression
 			: primary_expression
 			| postfix_expression '[' expression ']'
