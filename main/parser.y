@@ -37,7 +37,7 @@ These are called precedence declarations.
 %nonassoc LOWER_THAN_ELSE
 %nonassoc ELSE
 
-%left AND OR LE GE EQUAL NOTEQ
+%left AND OR LE GE EQUAL
 
 %right '='
 
@@ -93,7 +93,6 @@ and_expression
 equality_expression
 			: relational_expression
 			| equality_expression EQUAL relational_expression
-			| equality_expression NOTEQ relational_expression
 			;
 
 relational_expression
@@ -107,7 +106,6 @@ relational_expression
 additive_expression
 			: multiplicative_expression
 			| additive_expression '+' multiplicative_expression
-			| additive_expression '-' multiplicative_expression
 			;
 
 multiplicative_expression
@@ -156,34 +154,7 @@ unary_operator
 			: '&' 
 			| '*' 
 			| '+' 
-			| '-' 
-			| '!'
-			;
-
-type_name
-			: specifier_qualifier_list
-			| specifier_qualifier_list abstract_declarator
-			;
-
-specifier_qualifier_list
-			: type specifier_qualifier_list
-			| type
-			;
-
-abstract_declarator
-			: pointer
-			| pointer direct_abstract_declarator
-			| direct_abstract_declarator
-			;
-
-direct_abstract_declarator
-			: '(' abstract_declarator ')'
-			| '[' ']'
-			| '[' assignment_expression ']'
-			| direct_abstract_declarator '[' ']'
-			| direct_abstract_declarator '[' assignment_expression ']'
-			| '[' '*' ']'
-			| direct_abstract_declarator '[' '*' ']'
+			| '-'
 			;
 
 declaration
