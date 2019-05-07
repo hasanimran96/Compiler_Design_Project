@@ -31,7 +31,7 @@ specify its precedence and associativity, all at once.
 These are called precedence declarations.
 */
 %token IDENTIFIER CONSTANT STRING
-%token CHAR REAL NUM POSITIVE NONE
+%token CHAR REAL NUM NONE
 %token STOP GO DO JUMP IF END LOOP
 
 %nonassoc LOWER_THAN_ELSE
@@ -53,8 +53,7 @@ type
 			: NONE
 			| CHAR 
 			| NUM 
-			| REAL 
-			| POSITIVE
+			| REAL
 			;
 
 declarator
