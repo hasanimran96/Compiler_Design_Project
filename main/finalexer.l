@@ -44,7 +44,6 @@ L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING); }
 "<="			{ count(); return(LE); }
 ">="			{ count(); return(GE); }
 "=="			{ count(); return(EQUAL); }
-"!="			{ count(); return(NOTEQ); }
 ";"			{ count(); return(';'); }
 "{"			{ count(); return('{'); }
 "}"			{ count(); return('}'); }
@@ -55,7 +54,6 @@ L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING); }
 "["			{ count(); return('['); }
 "]"			{ count(); return(']'); }
 "&"			{ count(); return('&'); }
-"!"			{ count(); return('!'); }
 "-"			{ count(); return('-'); }
 "+"			{ count(); return('+'); }
 "*"			{ count(); return('*'); }
