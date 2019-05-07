@@ -112,3 +112,8 @@ direct_abstract_declarator
 			| '(' parameter_list ')'
 			| direct_abstract_declarator '(' ')'
 			| direct_abstract_declarator '(' parameter_list ')'
+
+argument_expression_list
+			: assignment_expression
+			| argument_expression_list ',' assignment_expression
+			;
