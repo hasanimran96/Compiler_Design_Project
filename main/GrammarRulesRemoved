@@ -61,6 +61,12 @@ unary_expression
 			:SIZE unary_expression
 			| SIZE type_name
 
+postfix_expression
+			: primary_expression
+			| postfix_expression '[' expression ']'
+			| postfix_expression '(' ')'
+			| postfix_expression '(' argument_expression_list ')'
+			;
 
 assignment_operator
 			: '=' 
