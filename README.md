@@ -47,3 +47,4 @@ gcc parser.cc -fno-diagnostics-show-caret
 !x is x == 0
 x!=y is !(x==y) is (x==y)==0
 x-y is x+(-y)
+x[y] is *(x+y)
