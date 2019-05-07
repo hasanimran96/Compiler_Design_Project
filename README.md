@@ -36,15 +36,15 @@ the -d is used to generate header file parser.tab.h
 
 ----------------------------------------------
 
-bison parser.y --report=all
-bison parser.y -o parser.cc
-gcc parser.cc -fno-diagnostics-show-caret
+bison parser.y --report=all  
+bison parser.y -o parser.cc  
+gcc parser.cc -fno-diagnostics-show-caret  
 
 ----------------------------------------------
 
 ## Grammar Reduction
 
-!x is x == 0
-x!=y is !(x==y) is (x==y)==0
-x-y is x+(-y)
-x[y] is *(x+y)
+!x is x == 0  
+x!=y is !(x==y) is (x==y)==0  
+x-y is x+(-y)  
+x[y] is *(x+y)  
