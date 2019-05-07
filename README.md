@@ -27,3 +27,7 @@ the -d is used to generate header file parser.tab.h
 7. http://www.quut.com/c/ANSI-C-grammar-l-1995.html
 
 8. https://stackoverflow.com/questions/47420730/linker-error-multiple-definition-of-yylex
+
+9. https://www.geeksforgeeks.org/operators-c-c/
+
+10. https://www.youtube.com/watch?v=eF9qWbuQLuw
