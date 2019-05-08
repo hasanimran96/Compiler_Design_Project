@@ -12,9 +12,12 @@ void count(void);
 void comment(void);
 
 extern int yylex();
+
 %}
+/*OPERATORS ['&', '*', '\-', '+', '/', '%'] /*BRACKETS ["{", "}", "(", ")", "[", "]"]*/
 
 %%
+
 "/*"			{ comment(); }
 "//"[^\n]*		{ /* consume //-comment */ }
 
@@ -22,6 +25,7 @@ extern int yylex();
 "real" 			{ count(); return(REAL);}
 "num"			{ count(); return(NUM);}
 "none"			{ count(); return(NONE);}
+
 "stop" 			{ count(); return(STOP);}
 "go" 			{ count(); return(GO);}
 "do" 			{ count(); return(DO);}
@@ -47,19 +51,15 @@ L?\"(\\.|[^\\"\n])*\"	{ count(); return(STRING); }
 "{"			{ count(); return('{'); }
 "}"			{ count(); return('}'); }
 ","			{ count(); return(','); }
-"="			{ count(); return('='); }
 "("			{ count(); return('('); }
 ")"			{ count(); return(')'); }
 "["			{ count(); return('['); }
 "]"			{ count(); return(']'); }
+"="			{ count(); return('='); }
 "&"			{ count(); return('&'); }
-"-"			{ count(); return('-'); }
-"+"			{ count(); return('+'); }
-"*"			{ count(); return('*'); }
-"/"			{ count(); return('/'); }
-"%"			{ count(); return('%'); }
 "<"			{ count(); return('<'); }
 ">" 			{ count(); return('>'); }
+[&|\*|-|\+|/|%]		{ count(); return(yytext[0]); }
 [ \t\v]			{ count(); }
 [\n\f]			{ count();printf("%d",yylineno); }
 . 			{error=1;return yytext[0];}
